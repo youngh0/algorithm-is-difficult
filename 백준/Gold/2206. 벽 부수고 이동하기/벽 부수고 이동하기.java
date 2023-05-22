@@ -70,7 +70,7 @@ public class Main {
                     if (board[nx][ny] == '1' && !visited[1][nx][ny]) {
                         q.offer(new int[]{nx, ny, 1, weight + 1});
                         // 벽인 칸에 올 수 있는건 아직 벽을 안부순 경우
-                        visited[1][nx][ny] = true;
+//                        visited[1][nx][ny] = true;
                         visited[0][nx][ny] = true;
                         continue;
                     }
