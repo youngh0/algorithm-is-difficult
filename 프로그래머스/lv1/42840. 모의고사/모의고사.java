@@ -1,49 +1,30 @@
 
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+class Solution {
+    public static int[] solution(int[] answers) {
+        int[][] patterns = {
+                {1, 2, 3, 4, 5},
+                {2, 1, 2, 3, 2, 4, 2, 5},
+                {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
+        };
 
-public class Solution {
-    public int[] solution(int[] answers) {
-        int[] answer = {};
-
-        List<Integer> student1 = new ArrayList<>(List.of(1, 2, 3, 4, 5));
-        List<Integer> student2 = new ArrayList<>(List.of(2, 1, 2, 3, 2, 4, 2, 5));
-        List<Integer> student3 = new ArrayList<>(List.of(3, 3, 1, 1, 2, 2, 4, 4, 5, 5));
-        List<List<Integer>> students = new ArrayList<>(List.of(student1, student2, student3));
-        int maxAnswerCount = 0;
-        List<Integer> answerCounts = new ArrayList<>();
-
-        for (List<Integer> student : students) {
-            int studentAnswerCount = check(answers, student);
-            maxAnswerCount = Math.max(studentAnswerCount, maxAnswerCount);
-            answerCounts.add(studentAnswerCount);
-        }
-
-        for (Integer answerCount : answerCounts) {
-            System.out.println(answerCount);
-        }
-        List<Integer> tmp = new ArrayList<>();
-        for (int i = 0; i < students.size(); i++) {
-            if (maxAnswerCount == answerCounts.get(i)) {
-                tmp.add(i + 1);
+        int[] hit = new int[3];
+        for(int i = 0; i < hit.length; i++) {
+            for(int j = 0; j < answers.length; j++) {
+                if(patterns[i][j % patterns[i].length] == answers[j]) hit[i]++;
             }
         }
-        return tmp.stream()
-                .mapToInt(i -> i)
-                .toArray();
-//        return tmp.toArray(new int[]);
-    }
 
-    public int check(int[] answers, List<Integer> studentAnswers) {
-        int count = 0;
-        for (int i = 0; i < answers.length; i++) {
-            int studentAnswerIndex = i % studentAnswers.size();
-            if (answers[i] == studentAnswers.get(studentAnswerIndex)) {
-                count++;
-            }
-        }
-        return count;
+        int max = Math.max(hit[0], Math.max(hit[1], hit[2]));
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < hit.length; i++)
+            if(max == hit[i]) list.add(i + 1);
+
+        int[] answer = new int[list.size()];
+        int cnt = 0;
+        for(int num : list)
+            answer[cnt++] = num;
+        return answer;
     }
 }
