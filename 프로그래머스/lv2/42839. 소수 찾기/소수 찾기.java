@@ -4,9 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Solution {
-    public static void main(String[] args) {
-
-    }
 
     public boolean[] visited = new boolean[9];
     public Set<Integer> nums = new HashSet<>();
@@ -16,9 +13,11 @@ public class Solution {
     public int solution(String numbers) {
         maxLength = numbers.length();
 
-        for (int i = 1; i < maxLength + 1; i++) {
-            backTracking(0, new StringBuilder(), i, numbers);
-        }
+//        for (int i = 1; i < maxLength + 1; i++) {
+//            backTracking(0, new StringBuilder(), i, numbers);
+//        }
+        
+        recursive("", numbers);
 
         for (Integer num : nums) {
             if (isPrime(num)) {
@@ -26,6 +25,16 @@ public class Solution {
             }
         }
         return answer;
+    }
+
+    public void recursive(String cur, String numsCandidate) {
+        if (!cur.equals("")) {
+            nums.add(Integer.parseInt(cur));
+        }
+
+        for (int i = 0; i < numsCandidate.length(); i++) {
+            recursive(cur + numsCandidate.charAt(i), numsCandidate.substring(0, i) + numsCandidate.substring(i + 1));
+        }
     }
 
     public void backTracking(int index, StringBuilder cur, int maxIndex, String totalNumbers) {
