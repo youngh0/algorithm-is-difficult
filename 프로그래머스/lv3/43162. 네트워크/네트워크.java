@@ -21,36 +21,35 @@ class Solution {
             }
         }
         
-        Deque<Integer> dq = new ArrayDeque<>();
-        
-        for(int key : map.keySet()){
-            if(!visited[key]){
-                visited[key] = true;
-                answer++;
-                List<Integer> connects = map.get(key);
-                for(int connect : connects){
-                    if(!visited[connect]){
-                        dq.offerLast(connect);       
-                    }
-                }
-                if(!dq.isEmpty()){
-                    while(!dq.isEmpty()){
-                        int start = dq.pollFirst();
-                        visited[start] = true;
-                        List<Integer> connects2 = map.get(start);
-                        for(int connect : connects2){
-                            if(!visited[connect]){
-                                visited[connect] = true;
-                            
-                                dq.offerLast(connect);
-                            }
-                        }
-                    }
-                }
-            }
-        
+        int[] parent = new int[n];
+        for(int i = 0;i < n;i++){
+            parent[i] = i;
         }
         
-        return answer;
+        for(int key: map.keySet()){
+            List<Integer> connects = map.get(key);
+            for(int connect: connects){
+                int a = getParent(parent, key);
+                int b = getParent(parent, connect);
+                
+                if(a < b){
+                    parent[b] = a;
+                }else{
+                    parent[a] = b;
+                }
+            }
+        }
+        
+        Set<Integer> nodes = new HashSet<>();
+        
+        for(int p : parent){
+            nodes.add(getParent(parent, p));
+        }    
+        return nodes.size();
+    }
+    
+    public int getParent(int[] parent, int node){
+        if(parent[node] == node) return node;
+        else return getParent(parent, parent[node]);
     }
 }
