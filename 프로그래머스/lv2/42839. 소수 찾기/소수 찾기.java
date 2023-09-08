@@ -13,11 +13,11 @@ public class Solution {
     public int solution(String numbers) {
         maxLength = numbers.length();
 
-//        for (int i = 1; i < maxLength + 1; i++) {
-//            backTracking(0, new StringBuilder(), i, numbers);
-//        }
+       for (int i = 1; i < maxLength + 1; i++) {
+           backTracking(new StringBuilder(), i, numbers);
+       }
         
-        recursive("", numbers);
+        // recursive("", numbers);
 
         for (Integer num : nums) {
             if (isPrime(num)) {
@@ -27,17 +27,17 @@ public class Solution {
         return answer;
     }
 
-    public void recursive(String cur, String numsCandidate) {
-        if (!cur.equals("")) {
-            nums.add(Integer.parseInt(cur));
-        }
+//     public void recursive(String cur, String numsCandidate) {
+//         if (!cur.equals("")) {
+//             nums.add(Integer.parseInt(cur));
+//         }
 
-        for (int i = 0; i < numsCandidate.length(); i++) {
-            recursive(cur + numsCandidate.charAt(i), numsCandidate.substring(0, i) + numsCandidate.substring(i + 1));
-        }
-    }
+//         for (int i = 0; i < numsCandidate.length(); i++) {
+//             recursive(cur + numsCandidate.charAt(i), numsCandidate.substring(0, i) + numsCandidate.substring(i + 1));
+//         }
+//     }
 
-    public void backTracking(int index, StringBuilder cur, int maxIndex, String totalNumbers) {
+    public void backTracking(StringBuilder cur, int maxIndex, String totalNumbers) {
         if (cur.length() == maxIndex) {
             nums.add(Integer.parseInt(String.valueOf(cur)));
             return;
@@ -47,7 +47,7 @@ public class Solution {
             if (!visited[i]) {
                 cur.append(totalNumbers.charAt(i));
                 visited[i] = true;
-                backTracking(index, cur, maxIndex, totalNumbers);
+                backTracking(cur, maxIndex, totalNumbers);
                 visited[i] = false;
                 cur.deleteCharAt(cur.length() - 1);
             }
