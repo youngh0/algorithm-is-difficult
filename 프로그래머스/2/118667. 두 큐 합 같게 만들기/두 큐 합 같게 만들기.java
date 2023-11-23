@@ -6,14 +6,10 @@ class Solution {
         Deque<Long> q1 = new ArrayDeque<>();
         Deque<Long> q2 = new ArrayDeque<>();
         
-        long total = 0;
         long q1Total = 0;
         long q2Total = 0;
         
-        for(int i = 0;i < queue1.length;i++){
-            total += queue1[i];
-            total += queue2[i];
-            
+        for(int i = 0;i < queue1.length;i++){       
             q1.addLast(Long.valueOf(queue1[i]));
             q2.addLast(Long.valueOf(queue2[i]));
             
@@ -21,12 +17,9 @@ class Solution {
             q2Total += Long.valueOf(queue2[i]);
         }
         
-        if(total % 2 == 1){
-            return -1;
-        }
         int maxCount = queue1.length + queue2.length;
         
-        for(int i = 0; i < maxCount+3;i++){
+        for(int i = 0; i < maxCount + 3;i++){
             if(q1Total == q2Total){
                 return i;
             }
@@ -44,7 +37,6 @@ class Solution {
             }
         }
         
-        int answer = -1;
         return -1;
     }
 }
