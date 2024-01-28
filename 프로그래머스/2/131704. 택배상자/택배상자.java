@@ -12,30 +12,34 @@ class Solution {
             second.add(i);
         }
         
-        
-        while(answer < order.length){
+        while(true){
+            if(answer == order.length){
+                break;
+            }
             if(order[answer] == youngjae){
                 answer++;
                 youngjae++;
             }
+            else if(second.isEmpty()){
+                break;
+            }
+            else if(second.get(second.size()-1) == order[answer]){
+                second.remove(second.size()-1);
+                answer++;
+            }
             else if(order[answer] > youngjae){
-                second.add(youngjae);
-                youngjae++;
-                // for(int i = youngjae; i < order[answer] + 1; i++){
-                    
-                // }
-                // youngjae = order[answer] + 1;
-                // answer++;
-                
+                for(int i = youngjae; i < order[answer] + 1; i++){
+                    second.add(i);
+                }
+                youngjae = order[answer] + 1;
+                answer++;
+                continue;
             }
             else if(order[answer] < youngjae){
-                if(second.isEmpty() || second.get(second.size()-1) != order[answer]){
-                    break;    
-                }else if(second.get(second.size()-1) == order[answer]){
-                    second.remove(second.size()-1);
-                    answer++;
-                }
-            } 
+                break;
+            }
+            
+            
         }
         
         
