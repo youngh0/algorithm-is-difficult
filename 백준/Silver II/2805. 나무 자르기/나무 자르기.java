@@ -7,50 +7,42 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-
-    static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     public static void main(String[] args) throws IOException {
-
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-
-        int [] arr = new int[N];
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
 
-        for(int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        int[] trees = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            trees[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr);
+        Arrays.sort(trees);
 
-        int start = 0;
-        int end = arr[N-1];
+        int left = 0;
+        int right = trees[n - 1];
         int answer = 0;
+        while (left <= right) {
+            int mid = (left + right) / 2;
 
-        while(start <= end) {
-            long sum = 0;
-            int mid = (start + end) / 2;
-            for(int j = 0; j < N; j++) {
-                if(mid < arr[j]){
-                    sum += arr[j] - mid;
+            long count = 0;
+            for (int i = 0; i < n; i++) {
+                if (mid < trees[i]) {
+                    count += trees[i] - mid;
                 }
             }
 
-            if(sum >= M) {
+            if (count >= m) {
                 answer = mid;
-                start = mid + 1;
+                left = mid + 1;
             } else {
-                end = mid -1;
+                right = mid - 1;
             }
-
         }
-
         System.out.println(answer);
-        
     }
 }
-
