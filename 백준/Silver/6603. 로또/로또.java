@@ -1,62 +1,56 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
+
     static StringTokenizer st;
-    static int[] arr;
-    static boolean[] visited;
-    static int n;
-    static ArrayList<Integer> tmp = new ArrayList<>();
+    static int k;
+    static int [] arr;
     static StringBuilder sb = new StringBuilder();
+    static List<Integer> tmp = new ArrayList<>();
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         while (true) {
-            String inputValue = br.readLine();
-            if (inputValue.length() == 1) {
+            st = new StringTokenizer(br.readLine());
+            k = Integer.parseInt(st.nextToken());
+            if (k == 0) {
                 break;
             }
-            st = new StringTokenizer(inputValue);
-
-            n = Integer.parseInt(st.nextToken());
-
-            arr = new int[n];
-            visited = new boolean[n];
-            for (int i = 0; i < n; i++) {
+            arr = new int[k];
+            visited = new boolean[k];
+            for (int i = 0; i < k; i++) {
                 arr[i] = Integer.parseInt(st.nextToken());
             }
-
-            Arrays.sort(arr);
-
-            solution(0, 0);
-            sb.append("\n");
+            backTracking(0,0);
+            sb.append('\n');
         }
         System.out.println(sb);
     }
 
-    static void solution(int depth, int start) {
-        if (depth == 6) {
-            for (Integer a : tmp) {
-                sb.append(a).append(" ");
+    static void backTracking(int depth,int idx) {
+        if (tmp.size() == 6) {
+            for (Integer integer : tmp) {
+                sb.append(integer).append(" ");
             }
-            sb.append("\n");
+            sb.append('\n');
+            return;
         }
 
-        for (int i = start; i < n; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
+        for (int i = idx; i < k; i++) {
+//            if (!visited[i]) {
                 tmp.add(arr[i]);
-
-                solution(depth+1, i+1);
-
+                visited[i] = true;
+                backTracking(depth + 1, i+1);
                 visited[i] = false;
                 tmp.remove(tmp.size() - 1);
-            }
+//            }
         }
     }
 }
