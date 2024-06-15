@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,15 +30,15 @@ public class Main {
         System.out.println(answer);
     }
 
-    public static void backTracking(int sum, int cnt, int used) {
-        if (cnt == n) {
-            if (sum == s && used > 0) {
+    public static void backTracking(int sum, int index, int used) {
+        if (index == n) {
+            if (sum == s && used != 0) {
                 answer++;
             }
             return;
         }
 
-        backTracking(sum + nums[cnt], cnt + 1, used + 1);
-        backTracking(sum, cnt + 1, used);
+        backTracking(sum + nums[index], index + 1, used + 1);
+        backTracking(sum, index + 1, used);
     }
 }
